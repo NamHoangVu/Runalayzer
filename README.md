@@ -1,4 +1,4 @@
-# Runalayzer
+# Runalyzer
 
 Personal training analysis app: pulls activity data from Garmin Connect and gives rule-based feedback (no LLM). Two parts:
 

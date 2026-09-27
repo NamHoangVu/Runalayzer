@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Runalayzer",
+  title: "Runalyzer",
   description: "Personal training analysis based on Garmin Connect data",
 };
 

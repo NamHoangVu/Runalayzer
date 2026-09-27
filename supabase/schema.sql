@@ -1,4 +1,4 @@
--- Runalayzer database schema.
+-- Runalyzer database schema.
 -- Review and run this in the Supabase SQL editor (Project -> SQL Editor) once approved.
 -- No RLS policies: every query goes through the server-only service-role
 -- client (lib/supabase/admin.ts); the anon key is never exposed to the browser.
