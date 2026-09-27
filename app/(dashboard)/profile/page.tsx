@@ -13,7 +13,7 @@ export default async function ProfilePage() {
     return (
       <div className="flex flex-col gap-4">
         <h1 className="text-lg font-semibold">Profil</h1>
-        <p className="text-sm text-black/70">
+        <p className="text-sm text-foreground/70">
           Ingen bruker registrert ennå — kjør Garmin-synken først (se README), så opprettes brukeren
           automatisk.
         </p>

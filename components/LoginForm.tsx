@@ -41,7 +41,7 @@ export default function LoginForm() {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Passord"
-        className="rounded border border-black/10 px-3 py-2"
+        className="rounded border border-foreground/10 px-3 py-2"
       />
       {error && <p className="text-sm text-red-600">{error}</p>}
       <button

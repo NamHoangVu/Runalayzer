@@ -13,6 +13,8 @@ from datetime import datetime, timezone
 import requests
 from garminconnect import Garmin
 
+from activity_details import fetch_activity_details_row, upsert_activity_details_rows
+
 PAGE_SIZE = 100
 
 # Coarse activityType.typeKey prefixes -> our `type` column. Order matters:
@@ -145,12 +147,12 @@ def map_activity(activity: dict, user_id: str) -> dict:
     }
 
 
-def upsert_activities(supabase_url: str, headers: dict, rows: list[dict]) -> None:
+def upsert_activities(supabase_url: str, headers: dict, rows: list[dict]) -> list[dict]:
     if not rows:
-        return
+        return []
     res = requests.post(
         f"{supabase_url}/rest/v1/activities",
-        headers={**headers, "Prefer": "resolution=merge-duplicates,return=minimal"},
+        headers={**headers, "Prefer": "resolution=merge-duplicates,return=representation"},
         params={"on_conflict": "garmin_activity_id"},
         json=rows,
         timeout=30,
@@ -158,6 +160,7 @@ def upsert_activities(supabase_url: str, headers: dict, rows: list[dict]) -> Non
     if not res.ok:
         print(f"Supabase upsert failed ({res.status_code}): {res.text}", file=sys.stderr)
     res.raise_for_status()
+    return res.json()
 
 
 def main() -> None:
@@ -178,6 +181,7 @@ def main() -> None:
 
     total_fetched = 0
     total_upserted = 0
+    total_details = 0
     start = 0
 
     while True:
@@ -198,14 +202,25 @@ def main() -> None:
                     continue
             rows.append(mapped)
 
-        upsert_activities(supabase_url, headers, rows)
-        total_upserted += len(rows)
+        upserted_rows = upsert_activities(supabase_url, headers, rows)
+        total_upserted += len(upserted_rows)
+
+        details_rows = []
+        for row in upserted_rows:
+            details = fetch_activity_details_row(client, row["garmin_activity_id"], row["id"])
+            if details is not None:
+                details_rows.append(details)
+        upsert_activity_details_rows(supabase_url, headers, details_rows)
+        total_details += len(details_rows)
 
         if last_synced_at and oldest_in_page and oldest_in_page <= last_synced_at:
             break
         start += PAGE_SIZE
 
-    print(f"Done. Fetched {total_fetched} activities from Garmin, upserted {total_upserted}.")
+    print(
+        f"Done. Fetched {total_fetched} activities from Garmin, "
+        f"upserted {total_upserted} activities and {total_details} activity_details rows."
+    )
 
 
 if __name__ == "__main__":

@@ -66,6 +66,86 @@ export type ActivityRow = {
   updated_at: string;
 };
 
+export type ActivityStreamPoint = {
+  t: number | null; // seconds since activity start
+  lat: number | null;
+  lon: number | null;
+  ele: number | null; // meters
+  hr: number | null; // bpm
+  speed: number | null; // m/s — reuse formatPace() for display
+  power: number | null; // watts
+  cadence: number | null;
+  sl: number | null; // stride length, cm
+  vo: number | null; // vertical oscillation, cm
+  gct: number | null; // ground contact time, ms
+  pc: number | null; // performance condition, dimensionless
+  bb: number | null; // body battery, 0-100
+};
+
+export type ActivitySplit = {
+  lap_index: number | null;
+  start_time_gmt: string | null;
+  distance_m: number | null;
+  duration_s: number | null;
+  moving_duration_s: number | null;
+  elevation_gain_m: number | null;
+  elevation_loss_m: number | null;
+  average_speed_mps: number | null;
+  max_speed_mps: number | null;
+  average_hr: number | null;
+  max_hr: number | null;
+  average_cadence: number | null;
+  max_cadence: number | null;
+  average_power: number | null;
+  max_power: number | null;
+  normalized_power: number | null;
+  ground_contact_time_ms: number | null;
+  stride_length_cm: number | null;
+  vertical_oscillation_cm: number | null;
+  vertical_ratio_pct: number | null;
+  calories: number | null;
+  intensity_type: string | null;
+};
+
+export type ActivityWeather = {
+  temp_c: number | null;
+  apparent_temp_c: number | null;
+  dew_point_c: number | null;
+  relative_humidity: number | null;
+  wind_speed_kmh: number | null;
+  wind_gust_kmh: number | null;
+  wind_direction_compass: string | null;
+  description: string | null;
+  station_name: string | null;
+};
+
+export type ActivityDetailsRow = {
+  activity_id: string;
+  training_effect_aerobic: number | null;
+  training_effect_aerobic_label: string | null;
+  training_effect_aerobic_message: string | null;
+  training_effect_anaerobic: number | null;
+  training_effect_anaerobic_message: string | null;
+  calories_total: number | null;
+  calories_bmr: number | null;
+  water_loss_ml: number | null;
+  body_battery_delta: number | null;
+  ground_contact_time_ms: number | null;
+  stride_length_cm: number | null;
+  vertical_oscillation_cm: number | null;
+  vertical_ratio_pct: number | null;
+  normalized_power_watts: number | null;
+  total_work_kj: number | null;
+  moderate_intensity_minutes: number | null;
+  vigorous_intensity_minutes: number | null;
+  steps: number | null;
+  weather: ActivityWeather | null;
+  splits: ActivitySplit[];
+  streams: ActivityStreamPoint[];
+  created_at: string;
+  updated_at: string;
+};
+
 export interface Database {
   public: {
     Tables: {
@@ -86,6 +166,12 @@ export interface Database {
         Insert: Partial<ActivityRow> &
           Pick<ActivityRow, "user_id" | "garmin_activity_id" | "type" | "start_date" | "raw">;
         Update: Partial<ActivityRow>;
+        Relationships: [];
+      };
+      activity_details: {
+        Row: ActivityDetailsRow;
+        Insert: Partial<ActivityDetailsRow> & Pick<ActivityDetailsRow, "activity_id">;
+        Update: Partial<ActivityDetailsRow>;
         Relationships: [];
       };
     };

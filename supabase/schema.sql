@@ -103,6 +103,47 @@ create index idx_activities_user_id_start_date on activities (user_id, start_dat
 create index idx_activities_user_id_type on activities (user_id, type);
 
 -- =========================================================
+-- activity_details: rich per-activity data (training effect, splits,
+-- weather, compact GPS/metric streams), 1:1 with activities. Kept separate
+-- from `activities` so the activity list query never touches this heavier
+-- jsonb data — only the activity detail page reads it.
+-- =========================================================
+create table activity_details (
+  activity_id                       uuid primary key references activities(id) on delete cascade,
+
+  training_effect_aerobic           numeric(3, 1),
+  training_effect_aerobic_label     text,
+  training_effect_aerobic_message   text,
+  training_effect_anaerobic         numeric(3, 1),
+  training_effect_anaerobic_message text,
+
+  calories_total                    numeric(7, 1),
+  calories_bmr                      numeric(7, 1),
+
+  water_loss_ml                     numeric(7, 1),
+  body_battery_delta                int,
+
+  ground_contact_time_ms            numeric(6, 1),
+  stride_length_cm                  numeric(6, 2),
+  vertical_oscillation_cm           numeric(5, 2),
+  vertical_ratio_pct                numeric(5, 2),
+
+  normalized_power_watts            numeric(6, 1),
+  total_work_kj                     numeric(8, 2),
+
+  moderate_intensity_minutes        int,
+  vigorous_intensity_minutes        int,
+  steps                             int,
+
+  weather                           jsonb,
+  splits                            jsonb not null default '[]'::jsonb,
+  streams                           jsonb not null default '[]'::jsonb,
+
+  created_at                        timestamptz not null default now(),
+  updated_at                        timestamptz not null default now()
+);
+
+-- =========================================================
 -- updated_at auto-touch trigger, shared across tables.
 -- =========================================================
 create or replace function set_updated_at()
@@ -123,4 +164,8 @@ create trigger trg_user_profile_updated_at
 
 create trigger trg_activities_updated_at
   before update on activities
+  for each row execute function set_updated_at();
+
+create trigger trg_activity_details_updated_at
+  before update on activity_details
   for each row execute function set_updated_at();

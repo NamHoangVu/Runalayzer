@@ -85,7 +85,7 @@ export default function ProfileForm({ initial }: Props) {
             type="number"
             value={heightCm}
             onChange={(e) => setHeightCm(e.target.value)}
-            className="rounded border border-black/10 px-2 py-1"
+            className="rounded border border-foreground/10 px-2 py-1"
           />
         </label>
         <label className="flex flex-col gap-1 text-sm">
@@ -94,7 +94,7 @@ export default function ProfileForm({ initial }: Props) {
             type="number"
             value={weightKg}
             onChange={(e) => setWeightKg(e.target.value)}
-            className="rounded border border-black/10 px-2 py-1"
+            className="rounded border border-foreground/10 px-2 py-1"
           />
         </label>
         <label className="flex flex-col gap-1 text-sm">
@@ -103,7 +103,7 @@ export default function ProfileForm({ initial }: Props) {
             type="number"
             value={birthYear}
             onChange={(e) => setBirthYear(e.target.value)}
-            className="rounded border border-black/10 px-2 py-1"
+            className="rounded border border-foreground/10 px-2 py-1"
           />
         </label>
         <label className="flex flex-col gap-1 text-sm">
@@ -112,7 +112,7 @@ export default function ProfileForm({ initial }: Props) {
             type="number"
             value={maxHeartRate}
             onChange={(e) => setMaxHeartRate(e.target.value)}
-            className="rounded border border-black/10 px-2 py-1"
+            className="rounded border border-foreground/10 px-2 py-1"
           />
         </label>
       </div>
@@ -122,7 +122,7 @@ export default function ProfileForm({ initial }: Props) {
         <select
           value={trainingLevel}
           onChange={(e) => setTrainingLevel(e.target.value)}
-          className="rounded border border-black/10 px-2 py-1"
+          className="rounded border border-foreground/10 px-2 py-1"
         >
           <option value="">Ikke satt</option>
           <option value="beginner">Nybegynner</option>
@@ -137,7 +137,7 @@ export default function ProfileForm({ initial }: Props) {
           value={goalsFreeform}
           onChange={(e) => setGoalsFreeform(e.target.value)}
           rows={3}
-          className="rounded border border-black/10 px-2 py-1"
+          className="rounded border border-foreground/10 px-2 py-1"
         />
       </label>
 
@@ -147,7 +147,7 @@ export default function ProfileForm({ initial }: Props) {
           value={goalsStructured}
           onChange={(e) => setGoalsStructured(e.target.value)}
           rows={4}
-          className="rounded border border-black/10 px-2 py-1 font-mono text-xs"
+          className="rounded border border-foreground/10 px-2 py-1 font-mono text-xs"
         />
       </label>
 
@@ -157,7 +157,7 @@ export default function ProfileForm({ initial }: Props) {
           value={planFreeform}
           onChange={(e) => setPlanFreeform(e.target.value)}
           rows={3}
-          className="rounded border border-black/10 px-2 py-1"
+          className="rounded border border-foreground/10 px-2 py-1"
         />
       </label>
 
@@ -167,7 +167,7 @@ export default function ProfileForm({ initial }: Props) {
           value={planStructured}
           onChange={(e) => setPlanStructured(e.target.value)}
           rows={4}
-          className="rounded border border-black/10 px-2 py-1 font-mono text-xs"
+          className="rounded border border-foreground/10 px-2 py-1 font-mono text-xs"
         />
       </label>
 

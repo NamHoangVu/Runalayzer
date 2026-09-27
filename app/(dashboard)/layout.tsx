@@ -4,7 +4,7 @@ import LogoutButton from "@/components/LogoutButton";
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex flex-1 flex-col">
-      <header className="flex items-center justify-between border-b border-black/10 px-6 py-4">
+      <header className="flex items-center justify-between border-b border-foreground/10 px-6 py-4">
         <nav className="flex gap-4 text-sm">
           <Link href="/">Aktiviteter</Link>
           <Link href="/profile">Profil</Link>
