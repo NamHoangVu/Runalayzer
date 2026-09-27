@@ -1,4 +1,4 @@
-# Stravalyzer
+# Runalayzer
 
 Personlig treningsanalyse-app: henter aktivitetsdata fra Garmin Connect og gir regelbasert feedback (ingen LLM). To deler:
 
@@ -22,7 +22,7 @@ Se `ingest/README.md` for full instruks. Kort fortalt: push repoet til et privat
 
 ## Status
 
-Bygget så langt: passordgate, Garmin-synk (historisk + inkrementell), grunnleggende profilside. Regelbasert analysemotor og dashboard-grafer (Recharts) er ikke bygget ennå.
+Bygget så langt: passordgate, Garmin-synk (historisk + inkrementell), grunnleggende profilside, rik aktivitetsdetaljside (kart, grafer, runder, vær, treningseffekt). Regelbasert analysemotor/feedback er ikke bygget ennå.
 
 ## Kommandoer
 

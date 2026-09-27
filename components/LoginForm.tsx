@@ -34,7 +34,7 @@ export default function LoginForm() {
 
   return (
     <form onSubmit={handleSubmit} className="flex w-full max-w-sm flex-col gap-4">
-      <h1 className="text-xl font-semibold">Stravalyzer</h1>
+      <h1 className="text-xl font-semibold">Runalayzer</h1>
       <input
         type="password"
         autoFocus

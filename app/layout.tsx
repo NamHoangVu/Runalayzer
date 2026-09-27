@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Stravalyzer",
+  title: "Runalayzer",
   description: "Personlig treningsanalyse basert på Strava-data",
 };
 

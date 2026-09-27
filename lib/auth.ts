@@ -1,6 +1,6 @@
 import { env } from "@/lib/env";
 
-export const SESSION_COOKIE_NAME = "stravalyzer_session";
+export const SESSION_COOKIE_NAME = "runalayzer_session";
 export const SESSION_MAX_AGE_SECONDS = 60 * 60 * 24 * 30; // 30 days
 
 const SESSION_PAYLOAD = "authenticated";
