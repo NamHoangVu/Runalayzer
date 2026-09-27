@@ -46,7 +46,7 @@ export default function ProfileForm({ initial }: Props) {
       parsedPlanStructured = JSON.parse(planStructured || "[]");
     } catch {
       setStatus("error");
-      setErrorMessage("Strukturerte mål/plan må være gyldig JSON.");
+      setErrorMessage("Structured goals/plan must be valid JSON.");
       return;
     }
 
@@ -69,7 +69,7 @@ export default function ProfileForm({ initial }: Props) {
     if (!res.ok) {
       const body = await res.json().catch(() => ({}));
       setStatus("error");
-      setErrorMessage(body.error ?? "Lagring feilet.");
+      setErrorMessage(body.error ?? "Saving failed.");
       return;
     }
 
@@ -80,7 +80,7 @@ export default function ProfileForm({ initial }: Props) {
     <form onSubmit={handleSubmit} className="flex max-w-xl flex-col gap-4">
       <div className="grid grid-cols-2 gap-4">
         <label className="flex flex-col gap-1 text-sm">
-          Høyde (cm)
+          Height (cm)
           <input
             type="number"
             value={heightCm}
@@ -89,7 +89,7 @@ export default function ProfileForm({ initial }: Props) {
           />
         </label>
         <label className="flex flex-col gap-1 text-sm">
-          Vekt (kg)
+          Weight (kg)
           <input
             type="number"
             value={weightKg}
@@ -98,7 +98,7 @@ export default function ProfileForm({ initial }: Props) {
           />
         </label>
         <label className="flex flex-col gap-1 text-sm">
-          Fødselsår
+          Birth year
           <input
             type="number"
             value={birthYear}
@@ -107,7 +107,7 @@ export default function ProfileForm({ initial }: Props) {
           />
         </label>
         <label className="flex flex-col gap-1 text-sm">
-          Maks puls
+          Max heart rate
           <input
             type="number"
             value={maxHeartRate}
@@ -118,21 +118,21 @@ export default function ProfileForm({ initial }: Props) {
       </div>
 
       <label className="flex flex-col gap-1 text-sm">
-        Treningsnivå
+        Training level
         <select
           value={trainingLevel}
           onChange={(e) => setTrainingLevel(e.target.value)}
           className="rounded border border-foreground/10 px-2 py-1"
         >
-          <option value="">Ikke satt</option>
-          <option value="beginner">Nybegynner</option>
-          <option value="intermediate">Middels</option>
-          <option value="advanced">Avansert</option>
+          <option value="">Not set</option>
+          <option value="beginner">Beginner</option>
+          <option value="intermediate">Intermediate</option>
+          <option value="advanced">Advanced</option>
         </select>
       </label>
 
       <label className="flex flex-col gap-1 text-sm">
-        Mål (fritekst)
+        Goals (free text)
         <textarea
           value={goalsFreeform}
           onChange={(e) => setGoalsFreeform(e.target.value)}
@@ -142,7 +142,7 @@ export default function ProfileForm({ initial }: Props) {
       </label>
 
       <label className="flex flex-col gap-1 text-sm">
-        Mål (strukturert JSON)
+        Goals (structured JSON)
         <textarea
           value={goalsStructured}
           onChange={(e) => setGoalsStructured(e.target.value)}
@@ -152,7 +152,7 @@ export default function ProfileForm({ initial }: Props) {
       </label>
 
       <label className="flex flex-col gap-1 text-sm">
-        Treningsplan (fritekst)
+        Training plan (free text)
         <textarea
           value={planFreeform}
           onChange={(e) => setPlanFreeform(e.target.value)}
@@ -162,7 +162,7 @@ export default function ProfileForm({ initial }: Props) {
       </label>
 
       <label className="flex flex-col gap-1 text-sm">
-        Treningsplan (strukturert JSON)
+        Training plan (structured JSON)
         <textarea
           value={planStructured}
           onChange={(e) => setPlanStructured(e.target.value)}
@@ -172,14 +172,14 @@ export default function ProfileForm({ initial }: Props) {
       </label>
 
       {status === "error" && <p className="text-sm text-red-600">{errorMessage}</p>}
-      {status === "saved" && <p className="text-sm text-green-600">Lagret.</p>}
+      {status === "saved" && <p className="text-sm text-green-600">Saved.</p>}
 
       <button
         type="submit"
         disabled={status === "saving"}
         className="w-fit rounded bg-foreground px-3 py-2 text-sm text-background disabled:opacity-50"
       >
-        {status === "saving" ? "Lagrer..." : "Lagre"}
+        {status === "saving" ? "Saving..." : "Save"}
       </button>
     </form>
   );

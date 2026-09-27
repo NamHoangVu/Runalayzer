@@ -22,7 +22,7 @@ export default function LoginForm() {
     });
 
     if (!res.ok) {
-      setError("Feil passord.");
+      setError("Wrong password.");
       setSubmitting(false);
       return;
     }
@@ -40,7 +40,7 @@ export default function LoginForm() {
         autoFocus
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        placeholder="Passord"
+        placeholder="Password"
         className="rounded border border-foreground/10 px-3 py-2"
       />
       {error && <p className="text-sm text-red-600">{error}</p>}
@@ -49,7 +49,7 @@ export default function LoginForm() {
         disabled={submitting}
         className="rounded bg-foreground px-3 py-2 text-background disabled:opacity-50"
       >
-        {submitting ? "Logger inn..." : "Logg inn"}
+        {submitting ? "Logging in..." : "Log in"}
       </button>
     </form>
   );

@@ -6,8 +6,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     <div className="flex flex-1 flex-col">
       <header className="flex items-center justify-between border-b border-foreground/10 px-6 py-4">
         <nav className="flex gap-4 text-sm">
-          <Link href="/">Aktiviteter</Link>
-          <Link href="/profile">Profil</Link>
+          <Link href="/">Activities</Link>
+          <Link href="/profile">Profile</Link>
         </nav>
         <LogoutButton />
       </header>

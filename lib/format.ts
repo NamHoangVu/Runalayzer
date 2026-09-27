@@ -32,14 +32,14 @@ export function formatPace(averageSpeedMps: number | null, type: string): string
 }
 
 export function formatDateTime(iso: string): string {
-  return new Date(iso).toLocaleString("nb-NO", {
+  return new Date(iso).toLocaleString("en-GB", {
     dateStyle: "long",
     timeStyle: "short",
   });
 }
 
 export function formatDate(iso: string): string {
-  return new Date(iso).toLocaleDateString("nb-NO");
+  return new Date(iso).toLocaleDateString("en-GB");
 }
 
 /** Signed formatter for values that can be negative (e.g. Body Battery delta). */

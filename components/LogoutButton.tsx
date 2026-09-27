@@ -13,7 +13,7 @@ export default function LogoutButton() {
 
   return (
     <button onClick={handleLogout} className="text-sm underline">
-      Logg ut
+      Log out
     </button>
   );
 }

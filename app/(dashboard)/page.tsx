@@ -12,11 +12,11 @@ export default async function DashboardPage() {
   if (!user) {
     return (
       <div className="flex flex-col gap-4">
-        <h1 className="text-lg font-semibold">Ingen aktiviteter ennå</h1>
+        <h1 className="text-lg font-semibold">No activities yet</h1>
         <p className="text-sm text-foreground/70">
-          Data kommer fra en planlagt Garmin-synk (GitHub Actions), ikke fra noe du trigger her i
-          appen. Kjør jobben manuelt i Actions-fanen på GitHub for å teste, eller vent til neste
-          planlagte kjøring.
+          Data comes from a scheduled Garmin sync (GitHub Actions), not from anything you trigger
+          here in the app. Run the job manually from the Actions tab on GitHub to test, or wait for
+          the next scheduled run.
         </p>
       </div>
     );
@@ -32,9 +32,9 @@ export default async function DashboardPage() {
   if (!activities || activities.length === 0) {
     return (
       <div className="flex flex-col gap-2">
-        <h1 className="text-lg font-semibold">Aktiviteter</h1>
+        <h1 className="text-lg font-semibold">Activities</h1>
         <p className="text-sm text-foreground/70">
-          Ingen aktiviteter synkronisert ennå. Historisk synk og feedback kommer i en senere runde.
+          No activities synced yet. Historical sync and feedback are coming in a later round.
         </p>
       </div>
     );
@@ -42,7 +42,7 @@ export default async function DashboardPage() {
 
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="text-lg font-semibold">Aktiviteter</h1>
+      <h1 className="text-lg font-semibold">Activities</h1>
       <ul className="flex flex-col gap-2">
         {activities.map((activity) => (
           <li key={activity.id}>

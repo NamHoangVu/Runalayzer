@@ -12,10 +12,10 @@ export default async function ProfilePage() {
   if (!user) {
     return (
       <div className="flex flex-col gap-4">
-        <h1 className="text-lg font-semibold">Profil</h1>
+        <h1 className="text-lg font-semibold">Profile</h1>
         <p className="text-sm text-foreground/70">
-          Ingen bruker registrert ennå — kjør Garmin-synken først (se README), så opprettes brukeren
-          automatisk.
+          No user registered yet — run the Garmin sync first (see README), and the user will be
+          created automatically.
         </p>
       </div>
     );
@@ -29,7 +29,7 @@ export default async function ProfilePage() {
 
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="text-lg font-semibold">Profil</h1>
+      <h1 className="text-lg font-semibold">Profile</h1>
       <ProfileForm initial={profile as UserProfileRow | null} />
     </div>
   );

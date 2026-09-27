@@ -39,9 +39,9 @@ export default async function ActivityDetailPage({ params }: { params: Promise<{
   if (!activity) {
     return (
       <div className="flex flex-col gap-4">
-        <h1 className="text-lg font-semibold">Fant ikke aktiviteten</h1>
+        <h1 className="text-lg font-semibold">Activity not found</h1>
         <Link href="/" className="text-sm underline">
-          Tilbake til aktiviteter
+          Back to activities
         </Link>
       </div>
     );
@@ -64,7 +64,7 @@ export default async function ActivityDetailPage({ params }: { params: Promise<{
     <div className="flex flex-col gap-6">
       <div>
         <Link href="/" className="text-sm underline">
-          ← Tilbake til aktiviteter
+          ← Back to activities
         </Link>
         <h1 className="mt-2 text-xl font-semibold">{activity.name ?? activity.type}</h1>
         <p className="text-sm text-foreground/60">
@@ -78,14 +78,17 @@ export default async function ActivityDetailPage({ params }: { params: Promise<{
       </div>
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
-        <Stat label="Distanse" value={formatDistance(activity.distance_meters)} />
-        <Stat label="Tid (aktiv)" value={formatDuration(activity.moving_time_seconds)} />
-        <Stat label="Tid (totalt)" value={formatDuration(activity.elapsed_time_seconds)} />
-        <Stat label="Snittfart" value={formatPace(activity.average_speed_mps, activity.type)} />
-        <Stat label="Makshastighet" value={formatPace(activity.max_speed_mps, activity.type)} />
-        <Stat label="Høydemeter" value={formatElevation(activity.total_elevation_gain_meters)} />
+        <Stat label="Distance" value={formatDistance(activity.distance_meters)} />
+        <Stat label="Time (moving)" value={formatDuration(activity.moving_time_seconds)} />
+        <Stat label="Time (total)" value={formatDuration(activity.elapsed_time_seconds)} />
+        <Stat label="Average pace" value={formatPace(activity.average_speed_mps, activity.type)} />
+        <Stat label="Max speed" value={formatPace(activity.max_speed_mps, activity.type)} />
         <Stat
-          label="Puls (snitt)"
+          label="Elevation gain"
+          value={formatElevation(activity.total_elevation_gain_meters)}
+        />
+        <Stat
+          label="Heart rate (avg)"
           value={
             activity.average_heartrate != null
               ? `${Math.round(activity.average_heartrate)} bpm`
@@ -93,27 +96,27 @@ export default async function ActivityDetailPage({ params }: { params: Promise<{
           }
         />
         <Stat
-          label="Puls (maks)"
+          label="Heart rate (max)"
           value={activity.max_heartrate != null ? `${Math.round(activity.max_heartrate)} bpm` : "–"}
         />
         <Stat
-          label="Kadens"
+          label="Cadence"
           value={activity.average_cadence != null ? `${Math.round(activity.average_cadence)}` : "–"}
         />
         <Stat
-          label="Watt (snitt)"
+          label="Power (avg)"
           value={activity.average_watts != null ? `${Math.round(activity.average_watts)} W` : "–"}
         />
         <Stat
-          label="Watt (maks)"
+          label="Power (max)"
           value={activity.max_watts != null ? `${Math.round(activity.max_watts)} W` : "–"}
         />
-        <Stat label="Kalorier" value={calories} />
+        <Stat label="Calories" value={calories} />
       </div>
 
       {!details && (
         <p className="text-sm text-foreground/60">
-          Detaljert data er ikke klar for denne aktiviteten ennå.
+          Detailed data isn&apos;t ready for this activity yet.
         </p>
       )}
 
@@ -121,30 +124,30 @@ export default async function ActivityDetailPage({ params }: { params: Promise<{
         <>
           {mapPoints.length > 0 && (
             <div>
-              <h2 className="mb-2 text-sm font-medium text-foreground/70">Rute</h2>
+              <h2 className="mb-2 text-sm font-medium text-foreground/70">Route</h2>
               <ActivityMap points={mapPoints} />
             </div>
           )}
 
           {details.streams.length > 0 && (
             <div>
-              <h2 className="mb-2 text-sm font-medium text-foreground/70">Grafer</h2>
+              <h2 className="mb-2 text-sm font-medium text-foreground/70">Charts</h2>
               <ActivityCharts streams={details.streams} activityType={activity.type} />
             </div>
           )}
 
           {details.splits.length > 0 && (
             <div>
-              <h2 className="mb-2 text-sm font-medium text-foreground/70">Runder</h2>
+              <h2 className="mb-2 text-sm font-medium text-foreground/70">Splits</h2>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="text-left text-foreground/60">
                       <th className="p-2">#</th>
-                      <th className="p-2">Distanse</th>
-                      <th className="p-2">Tid</th>
-                      <th className="p-2">Tempo</th>
-                      <th className="p-2">Puls</th>
+                      <th className="p-2">Distance</th>
+                      <th className="p-2">Time</th>
+                      <th className="p-2">Pace</th>
+                      <th className="p-2">Heart rate</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -166,10 +169,10 @@ export default async function ActivityDetailPage({ params }: { params: Promise<{
           )}
 
           <div>
-            <h2 className="mb-2 text-sm font-medium text-foreground/70">Utvidet statistikk</h2>
+            <h2 className="mb-2 text-sm font-medium text-foreground/70">Extended stats</h2>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
               <Stat
-                label="Treningseffekt (aerob)"
+                label="Training effect (aerobic)"
                 value={
                   details.training_effect_aerobic != null
                     ? `${details.training_effect_aerobic.toFixed(1)} (${details.training_effect_aerobic_label ?? "–"})`
@@ -177,7 +180,7 @@ export default async function ActivityDetailPage({ params }: { params: Promise<{
                 }
               />
               <Stat
-                label="Treningseffekt (anaerob)"
+                label="Training effect (anaerobic)"
                 value={
                   details.training_effect_anaerobic != null
                     ? details.training_effect_anaerobic.toFixed(1)
@@ -185,31 +188,31 @@ export default async function ActivityDetailPage({ params }: { params: Promise<{
                 }
               />
               <Stat
-                label="Hvilekalorier"
+                label="Resting calories"
                 value={
                   details.calories_bmr != null ? `${Math.round(details.calories_bmr)} kcal` : "–"
                 }
               />
               <Stat
-                label="Aktivitetskalorier"
+                label="Active calories"
                 value={activeCalories != null ? `${Math.round(activeCalories)} kcal` : "–"}
               />
-              <Stat label="Est. svettetap" value={formatWaterLoss(details.water_loss_ml)} />
+              <Stat label="Est. water loss" value={formatWaterLoss(details.water_loss_ml)} />
               <Stat
-                label="Body Battery-effekt"
+                label="Body Battery effect"
                 value={formatSigned(details.body_battery_delta, "")}
               />
               <Stat
-                label="Bakkekontakttid"
+                label="Ground contact time"
                 value={
                   details.ground_contact_time_ms != null
                     ? `${Math.round(details.ground_contact_time_ms)} ms`
                     : "–"
                 }
               />
-              <Stat label="Skrittlengde" value={formatStrideLength(details.stride_length_cm)} />
+              <Stat label="Stride length" value={formatStrideLength(details.stride_length_cm)} />
               <Stat
-                label="Vertikal oscillasjon"
+                label="Vertical oscillation"
                 value={
                   details.vertical_oscillation_cm != null
                     ? `${details.vertical_oscillation_cm.toFixed(1)} cm`
@@ -217,7 +220,7 @@ export default async function ActivityDetailPage({ params }: { params: Promise<{
                 }
               />
               <Stat
-                label="Vertikalt forholdstall"
+                label="Vertical ratio"
                 value={
                   details.vertical_ratio_pct != null
                     ? `${details.vertical_ratio_pct.toFixed(1)} %`
@@ -225,7 +228,7 @@ export default async function ActivityDetailPage({ params }: { params: Promise<{
                 }
               />
               <Stat
-                label="Normalisert kraft"
+                label="Normalized power"
                 value={
                   details.normalized_power_watts != null
                     ? `${Math.round(details.normalized_power_watts)} W`
@@ -233,13 +236,13 @@ export default async function ActivityDetailPage({ params }: { params: Promise<{
                 }
               />
               <Stat
-                label="Totalt arbeid"
+                label="Total work"
                 value={
                   details.total_work_kj != null ? `${Math.round(details.total_work_kj)} kJ` : "–"
                 }
               />
               <Stat
-                label="Moderat intensitet"
+                label="Moderate intensity"
                 value={
                   details.moderate_intensity_minutes != null
                     ? `${details.moderate_intensity_minutes} min`
@@ -247,14 +250,14 @@ export default async function ActivityDetailPage({ params }: { params: Promise<{
                 }
               />
               <Stat
-                label="Høy intensitet"
+                label="Vigorous intensity"
                 value={
                   details.vigorous_intensity_minutes != null
                     ? `${details.vigorous_intensity_minutes} min`
                     : "–"
                 }
               />
-              <Stat label="Steg" value={details.steps != null ? `${details.steps}` : "–"} />
+              <Stat label="Steps" value={details.steps != null ? `${details.steps}` : "–"} />
             </div>
           </div>
         </>

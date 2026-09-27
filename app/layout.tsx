@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Runalayzer",
-  description: "Personlig treningsanalyse basert på Strava-data",
+  description: "Personal training analysis based on Garmin Connect data",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

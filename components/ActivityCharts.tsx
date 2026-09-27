@@ -51,7 +51,7 @@ export default function ActivityCharts({ streams, activityType }: ActivityCharts
     <div className="flex flex-col gap-6">
       {(hasHr || hasCadence) && (
         <div>
-          <h3 className="mb-2 text-sm font-medium text-foreground/70">Puls og kadens</h3>
+          <h3 className="mb-2 text-sm font-medium text-foreground/70">Heart rate and cadence</h3>
           <ResponsiveContainer width="100%" height={220}>
             <LineChart data={data}>
               <CartesianGrid strokeOpacity={0.1} />
@@ -65,7 +65,7 @@ export default function ActivityCharts({ streams, activityType }: ActivityCharts
                   yAxisId="hr"
                   type="monotone"
                   dataKey="hr"
-                  name="Puls (bpm)"
+                  name="Heart rate (bpm)"
                   stroke="#dc2626"
                   dot={false}
                   connectNulls
@@ -76,7 +76,7 @@ export default function ActivityCharts({ streams, activityType }: ActivityCharts
                   yAxisId="cadence"
                   type="monotone"
                   dataKey="cadence"
-                  name="Kadens"
+                  name="Cadence"
                   stroke="#f59e0b"
                   dot={false}
                   connectNulls
@@ -90,7 +90,7 @@ export default function ActivityCharts({ streams, activityType }: ActivityCharts
       {hasPaceOrSpeed && (
         <div>
           <h3 className="mb-2 text-sm font-medium text-foreground/70">
-            {isPaceLike ? "Tempo (min/km, lavere = raskere)" : "Fart (km/t)"}
+            {isPaceLike ? "Pace (min/km, lower = faster)" : "Speed (km/h)"}
           </h3>
           <ResponsiveContainer width="100%" height={200}>
             <LineChart data={data}>
@@ -101,7 +101,7 @@ export default function ActivityCharts({ streams, activityType }: ActivityCharts
               <Line
                 type="monotone"
                 dataKey="paceOrSpeed"
-                name={isPaceLike ? "Tempo" : "Fart"}
+                name={isPaceLike ? "Pace" : "Speed"}
                 stroke="#2563eb"
                 dot={false}
                 connectNulls
@@ -113,7 +113,7 @@ export default function ActivityCharts({ streams, activityType }: ActivityCharts
 
       {(hasPower || hasGct || hasVo || hasSl || hasPc) && (
         <div>
-          <h3 className="mb-2 text-sm font-medium text-foreground/70">Løpsdynamikk</h3>
+          <h3 className="mb-2 text-sm font-medium text-foreground/70">Running dynamics</h3>
           <ResponsiveContainer width="100%" height={220}>
             <LineChart data={data}>
               <CartesianGrid strokeOpacity={0.1} />
@@ -127,7 +127,7 @@ export default function ActivityCharts({ streams, activityType }: ActivityCharts
                   yAxisId="left"
                   type="monotone"
                   dataKey="power"
-                  name="Kraft (W)"
+                  name="Power (W)"
                   stroke="#a855f7"
                   dot={false}
                   connectNulls
@@ -138,7 +138,7 @@ export default function ActivityCharts({ streams, activityType }: ActivityCharts
                   yAxisId="right"
                   type="monotone"
                   dataKey="gct"
-                  name="Bakkekontakttid (ms)"
+                  name="Ground contact time (ms)"
                   stroke="#0ea5e9"
                   dot={false}
                   connectNulls
@@ -149,7 +149,7 @@ export default function ActivityCharts({ streams, activityType }: ActivityCharts
                   yAxisId="right"
                   type="monotone"
                   dataKey="vo"
-                  name="Vertikal oscillasjon (cm)"
+                  name="Vertical oscillation (cm)"
                   stroke="#22c55e"
                   dot={false}
                   connectNulls
@@ -160,7 +160,7 @@ export default function ActivityCharts({ streams, activityType }: ActivityCharts
                   yAxisId="right"
                   type="monotone"
                   dataKey="sl"
-                  name="Skrittlengde (cm)"
+                  name="Stride length (cm)"
                   stroke="#eab308"
                   dot={false}
                   connectNulls
@@ -171,7 +171,7 @@ export default function ActivityCharts({ streams, activityType }: ActivityCharts
                   yAxisId="right"
                   type="monotone"
                   dataKey="pc"
-                  name="Ytelseskondisjon"
+                  name="Performance condition"
                   stroke="#64748b"
                   dot={false}
                   connectNulls
